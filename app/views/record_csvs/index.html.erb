@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="row"></div>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="container-fluid flash-message-container">
+        <% flash.each do |type, message| %>
+        <div class="alert alert-<%=type %> fade in">
+          <button class="close" data-dismiss="alert">
+            ×
+          </button>
+          <%= message %>
+        </div>
+        <% end %>
+        <% flash.clear %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <h3>upload csv file</h3>
+      <%= form_tag(:record_csvs_save, multipart: true) do  %>
+      <div class="form-group">
+        <%= label_tag :file %>
+        <%= file_field_tag :csv_file, class: "form-control", accept: ".csv"  %>
+      </div>
+      <%= submit_tag "Save Records", class: 'btn-primary' %>
+      <% end %>
+    </div>
+  </div>
+
+  <% if @users.present? %>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>name</th>
+              <th>Email</th>
+              <th>Address</th>
+              <th>Age</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @users.each_with_index do |user, index| %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td><%= user.name %></td>
+              <td><%= user.email %></td>
+              <td><%= user.address %></td>
+              <td><%= user.age %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+</div>
